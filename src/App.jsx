@@ -31,6 +31,14 @@ function App() {
     const loading = false ;
     if (loading === true ) return (<h1>cargando comentarios </h1>)
     
+    const  addComentario = (newComentario) => {
+      //utilice el operador spread
+      //para añadir el newComentario 
+      //a la lista de comentarios(comments)  
+      setComents( prevComents => [...prevComents, newComentario])
+    }
+
+
   return (
     
     <div className='container'>
@@ -39,7 +47,7 @@ function App() {
         autor={Autor} 
         ficha={ficha} 
         centro={centro_formacion}  />
-        <ComentarioForm></ComentarioForm>
+        <ComentarioForm handleAdd={addComentario}></ComentarioForm>
         <ComentarioStats comentarios={coments} />
         <ComentarioLista
         coments={coments} 

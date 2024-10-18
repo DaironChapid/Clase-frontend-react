@@ -1,19 +1,16 @@
-import React from 'react'
-import comentarios from '../data/Comentarios'
-const ComentarioStats = ({ Comentarios }) => {
-const comentariostotales = comentarios.length
+import React from 'react';
 
-  return (
-    <div className='feedback-stats'>
-        {/* El numero de comentarios que hay
-        en el arreglo de comentarios  */}
-    <h4>  Comentarios: {comentariostotales} </h4>
-        {/* El promedio de calificaciones
-        de los comentarios en e arreglo reduce
-        */}
-    <h4>  Calificacion promedio  </h4>
-    </div>
-  )
-}
+const ComentarioStats = ({ comentarios }) => {
+    const totalComentarios = comentarios.length;
+    
+    const promedio = totalComentarios > 0 ? comentarios.reduce((acc, comentario) => acc + comentario.calificacion, 0) / totalComentarios : 0;
 
-export default ComentarioStats
+    return (
+        <div>
+            <h4>Total Comentarios: {totalComentarios}</h4>
+            <h4>Promedio de Calificación: {promedio.toFixed(2)}</h4>
+        </div>
+    );
+};
+
+export default ComentarioStats;
