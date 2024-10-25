@@ -1,15 +1,19 @@
-import {React , useState } from 'react'
+import {React , useState, useContext } from 'react'
 import Card from './Card'
 import { FaTimes } from 'react-icons/fa'
+import ComentariosContexto from '../contexto/ComentariosContexto'
 
-const ComentarioItem = ({comentario , calificacion, id, handleDelete }) => {
+const ComentarioItem = ({comentario}) => {
 
-    //manejo del estado de un comentario:
-    //comentario y calificacion como atributos
-    //mediante el suo de estados 
-    const [ coment, setComent ] = useState(comentario)
-    const [rating, setRating] = useState(calificacion)
-    const [ identificacion , setIdentificacion ] = useState(id)
+    //desestrecturar: tomar un objeto y 
+    // separar un atributo del obeto
+
+
+    const{borrarItem}= useContext()
+
+    const [ coment, setComent ] = useState(comentario.comentario)
+    const [rating, setRating] = useState(comentario.calificacion)
+    const [ identificacion , setIdentificacion ] = useState(comentario.id)
 
    
 
@@ -17,7 +21,7 @@ const ComentarioItem = ({comentario , calificacion, id, handleDelete }) => {
     <Card reverse={false}>
         <div className='num-display'>{rating}</div>
         <button 
-        onClick={ () => handleDelete(identificacion)}
+        onClick={ () => borrarItem(identificacion)}
           className='close'
           >
         <FaTimes color='purple' />

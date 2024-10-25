@@ -1,11 +1,16 @@
 import {React,  useState } from 'react'
+import { BrowserRouter as Router , Routes , Route } from 'react-router-dom'
 import Header from './componentes/Header';
-import ComentarioItem from './componentes/ComentarioItem';
 import comentarios from './data/Comentarios';
 import ComentarioLista from './componentes/ComentarioLista';
-import Card from './componentes/Card';
 import ComentarioStats from './componentes/ComentarioStats';
 import ComentarioForm from './componentes/ComentarioForm';
+import About from './paginas/About';
+import AboutIconLink from './componentes/AboutIconLink';
+import AboutIconLink2 from './componentes/AbouIconLink2';
+import { ComentariosProvider } from './contexto/ComentariosContexto';
+
+
 function App() {
 
     const  [coments , setComents] = useState(comentarios)
@@ -40,19 +45,49 @@ function App() {
 
 
   return (
-    
+    <ComentariosProvider>
+    <Router>
     <div className='container'>
         <Header 
         titulo={titulo} 
         autor={Autor} 
         ficha={ficha} 
         centro={centro_formacion}  />
-        <ComentarioForm handleAdd={addComentario}></ComentarioForm>
-        <ComentarioStats comentarios={coments} />
-        <ComentarioLista
-        coments={coments} 
-        handleDelete = {borrarItem} />
+        <Routes>
+          <Route exact path='/' element={
+            <>
+              <ComentarioForm handleAdd={addComentario}   />
+              <ComentarioStats comentarios={coments} />
+              <ComentarioLista />
+              <AboutIconLink />
+              
+              
+            </>} >
+          </Route>
+
+          <Route path='/about' element={
+            <>
+                 <About 
+                  titulo={titulo} 
+                  autor={Autor} 
+                  ficha={ficha}
+                  centro={centro_formacion}/>
+                  <AboutIconLink2 />
+            
+            </>
+           
+            } 
+            />
+           
+            
+            
+        
+        </Routes>
+        
+        
     </div>
+    </Router>
+    </ComentariosProvider>
   )
 }
 
